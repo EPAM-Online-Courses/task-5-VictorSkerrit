@@ -3,6 +3,8 @@ package efs.task.collections.data;
 import efs.task.collections.entity.Hero;
 import efs.task.collections.entity.Town;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,29 +12,76 @@ public class DataProvider {
 
     public static final String DATA_SEPARATOR = ",";
 
-    // TODO Utwórz listę miast na podstawie tablicy Data.baseTownsArray.
-    //  Tablica zawiera String zawierający nazwę miasta oraz dwie klasy bohatera związane z tym miastem oddzielone przecinkami.
-    //  Korzystając z funkcji split() oraz stałej DATA_SEPARATOR utwórz listę obiektów klasy efs.task.collections.entities.Town.
-    //  Funkcja zwraca listę obiektów typu Town ze wszystkimi dziewięcioma podstawowymi miastami.
     public List<Town> getTownsList() {
-        return null;
+
+        int capacity = Data.baseTownsArray.length;
+        List<Town> arrayTowns = new ArrayList<>(capacity);
+
+        List<String> heroClasses = new ArrayList(2);
+        for(String baseTown : Data.baseTownsArray){
+
+            String [] data = baseTown.split(DATA_SEPARATOR);
+            String townName = data[0].trim();
+            heroClasses.add(data[1].trim());
+            heroClasses.add(data[2].trim());
+
+            Town t = new Town(townName, heroClasses);
+            heroClasses.clear();
+            arrayTowns.add(t);
+
+        }
+        return  arrayTowns;
     }
 
-    //TODO Analogicznie do getTownsList utwórz listę miast na podstawie tablicy Data.DLCTownsArray
     public List<Town> getDLCTownsList() {
-        return null;
+        int capacity = Data.dlcTownsArray.length;
+        List<Town> dlcArrayTowns = new ArrayList<>(capacity);
+
+        List<String> heroClasses = new ArrayList(1);
+        for(String baseTown : Data.dlcTownsArray){
+
+            var data = baseTown.split(DATA_SEPARATOR);
+            String townName = data[0].trim();
+            heroClasses.add(data[1].trim());
+
+            Town t = new Town(townName, heroClasses);
+            heroClasses.clear();
+            dlcArrayTowns.add(t);
+
+        }
+        return  dlcArrayTowns;
     }
 
-    //TODO Na podstawie tablicy Data.baseCharactersArray utworzyć listę bohaterów dostępnych w grze.
-    // Tablica Data.baseCharactersArray zawiera oddzielone przecinkiem imie bohatera, klasę bohatera.
-    // Korzystając z funkcji split() oraz DATA_SEPARATOR utwórz listę unikalnych obiektów efs.task.collections.entities.Hero.
-    // UWAGA w Data.baseCharactersArray niektórzy bohaterowie powtarzają się, do porównania bohaterów używamy zarówno imie jak i jego klasę;
+
     public Set<Hero> getHeroesSet() {
-        return null;
+        int capacity = Data.baseCharactersArray.length;
+        Set<Hero> heroes = new HashSet<>(capacity);
+
+        for (String baseCharacter : Data.baseCharactersArray) {
+            String[] data = baseCharacter.split(DATA_SEPARATOR);
+            String heroName = data[0].trim();
+            String heroClass = data[1].trim();
+
+            Hero hero = new Hero(heroName, heroClass);
+            heroes.add(hero);
+        }
+
+        return heroes;
     }
 
-    //TODO Analogicznie do getHeroesSet utwórz listę bohaterów na podstawie tablicy Data.DLCCharactersArray
     public Set<Hero> getDLCHeroesSet() {
-        return null;
+        int capacity = Data.dlcCharactersArray.length;
+        Set<Hero> dlcHeroes = new HashSet<>(capacity);
+
+        for (String baseCharacter : Data.dlcCharactersArray) {
+            String[] data = baseCharacter.split(DATA_SEPARATOR);
+            String heroName = data[0].trim();
+            String heroClass = data[1].trim();
+
+            Hero hero = new Hero(heroName, heroClass);
+            dlcHeroes.add(hero);
+        }
+
+        return dlcHeroes;
     }
 }
