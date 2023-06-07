@@ -1,5 +1,6 @@
 package efs.task.collections.entity;
 
+import java.util.Collection;
 import java.util.List;
 
 public class Town {
@@ -34,5 +35,9 @@ public class Town {
     @Override
     public String toString() {
         return "Miasto :" + townName;
+    }
+
+    public List<String> getHeroClasses() {
+        return startingHeroClasses;
     }
 }
